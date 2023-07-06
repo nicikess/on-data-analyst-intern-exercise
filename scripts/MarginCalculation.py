@@ -23,10 +23,4 @@ def margin_calculation(data):
     # Group by style name and calculate mean
     margin_data = temp_data.groupby('Style Name').mean()
 
-    # Round margins
-    margin_data['target_margin'] = margin_data['target_margin'].round(2)
-    margin_data['actual_margin'] = margin_data['actual_margin'].round(2)
-    margin_data['target_margin_per_piece'] = margin_data['target_margin_per_piece'].round(2)
-    margin_data['actual_margin_per_piece'] = margin_data['actual_margin_per_piece'].round(2)
-
     return margin_data

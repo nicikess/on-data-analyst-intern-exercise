@@ -29,7 +29,7 @@ def seasonal_margin_calculation(data):
 
     season_temp_data = [temp_data_season_one, temp_data_season_two]
 
-    season_results = []
+    season_margin = []
 
     for season_data in season_temp_data:
         # Select relevant columns (Style, Target volume, Target FOB $, Target Retail Price $, Actual FOB $)
@@ -39,13 +39,16 @@ def seasonal_margin_calculation(data):
         # Group by season and style name and calculate mean
         temp_data = temp_data.groupby(['Style Name']).mean()
         lowest_and_highest_margin, lowest_and_highest_margin_per_piece = lowest_and_highest_margin_calculation(temp_data)
-        season_results.append([lowest_and_highest_margin, lowest_and_highest_margin_per_piece])
+        season_margin.append([lowest_and_highest_margin, lowest_and_highest_margin_per_piece])
 
-    return season_results
+    return season_margin
 
 def specific_margin_calculation(data, margin_data):
 
     highest_and_lowest_margin, highest_and_lowest_margin_per_piece = lowest_and_highest_margin_calculation(margin_data)
-    test = seasonal_margin_calculation(data)
-    print(test)
+
+    # Two dataframes with two values (lowest and highest each)
+    season_margin = seasonal_margin_calculation(data)
+
+    return highest_and_lowest_margin, highest_and_lowest_margin_per_piece, season_margin
 
