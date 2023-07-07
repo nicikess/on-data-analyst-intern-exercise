@@ -3,9 +3,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 
+
 def anomaly_detection(data):
 
-    '''
+    """
 
     Numerical:
 
@@ -32,17 +33,22 @@ def anomaly_detection(data):
         - There is outlier in the Style Update column (but I left them in the dataset),
         because the group_by operation by pandas can handle the values and print them separately
         - There is also a blank row in color update
-    '''
+    """
 
     # Select the columns for boxplots
-    columns_to_plot = ['Target Volume', 'Target FOB $', 'Target Retail Price $', 'Actual FOB $']
+    columns_to_plot = [
+        "Target Volume",
+        "Target FOB $",
+        "Target Retail Price $",
+        "Actual FOB $",
+    ]
 
     # Create a figure and axes for subplots
     fig, axes = plt.subplots(1, len(columns_to_plot), figsize=(12, 4))
 
     # Iterate over columns and create boxplots
     for ax, column in zip(axes, columns_to_plot):
-        sns.boxplot(data=data[column], ax=ax)
+        sns.boxplot(data=data[column], ax=ax, color="darkgray")
         ax.set_title(column)
 
     # Adjust spacing between subplots
@@ -51,9 +57,12 @@ def anomaly_detection(data):
     # Show the plot
     plt.show()
 
+
 def multi_dim_plot(data):
     temp_data = data
-    temp_data = temp_data.loc[:, ['Target Volume', 'Target FOB $', 'Target Retail Price $', 'Actual FOB $']]
+    temp_data = temp_data.loc[
+        :, ["Target Volume", "Target FOB $", "Target Retail Price $", "Actual FOB $"]
+    ]
     tsne = TSNE(n_components=2, random_state=42)
     X_tsne = tsne.fit_transform(temp_data)
 
@@ -69,14 +78,14 @@ def remove_anomaly(data):
 
     temp_data = data
 
-    print("Number of data points before anomaly removal: "+str(len(temp_data)))
+    print("Number of data points before anomaly removal: " + str(len(temp_data)))
 
     # Remove rows with zero values in the 'Actual FOB $' column
-    temp_data = temp_data[temp_data['Target FOB $'] != 0]
-    temp_data = temp_data[temp_data['Target Retail Price $'] != 0]
-    temp_data = temp_data[temp_data['Actual FOB $'] != 0]
+    temp_data = temp_data[temp_data["Target FOB $"] != 0]
+    temp_data = temp_data[temp_data["Target Retail Price $"] != 0]
+    temp_data = temp_data[temp_data["Actual FOB $"] != 0]
 
-    print("Number of data points after anomaly removal: "+str(len(temp_data)))
+    print("Number of data points after anomaly removal: " + str(len(temp_data)))
 
     cleaned_data = temp_data
 
@@ -84,7 +93,7 @@ def remove_anomaly(data):
 
 
 def anomaly_handler(data):
-    #anomaly_detection(data)
+    anomaly_detection(data)
     cleaned_data = remove_anomaly(data)
-    #multi_dim_plot(cleaned_data)
+    # multi_dim_plot(cleaned_data)
     return cleaned_data

@@ -3,11 +3,21 @@ import pandas as pd
 
 def cost_breakdown_overview(data):
     # Set columns to break down
-    break_down_columns = ['Vertical', 'Factory']
+    break_down_columns = ["Vertical", "Factory"]
 
     # Select cost columns from dataframe
-    data_cost = data.loc[:, ['UPPER Cost', 'Other Cost', 'BOTTOM Cost', 'LABOR Cost', 'OVERHEAD Cost', 'Tooling Cost',
-                             'Actual FOB $']]
+    data_cost = data.loc[
+        :,
+        [
+            "UPPER Cost",
+            "Other Cost",
+            "BOTTOM Cost",
+            "LABOR Cost",
+            "OVERHEAD Cost",
+            "Tooling Cost",
+            "Actual FOB $",
+        ],
+    ]
 
     # List of breakdown dataframes
     break_down_dfs = []
