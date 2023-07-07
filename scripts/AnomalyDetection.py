@@ -1,7 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+from sklearn.manifold import TSNE
 
 def anomaly_detection(data):
 
@@ -10,7 +10,7 @@ def anomaly_detection(data):
     Numerical:
 
     1) No outlier in the target volume column
-        - There are some values that high, but does might be shoes that are sold in high volume
+        - There are some large values, but this might indicate that some shoes are sold in high volume
     2) Outliers in the Target FOB $ column -> there are some 0 values
         - There are some values that are high, but it should be high because its a premium shoe (target retail price is 330)
         - There are some 0 values, which is not possible
@@ -51,6 +51,18 @@ def anomaly_detection(data):
     # Show the plot
     plt.show()
 
+def multi_dim_plot(data):
+    temp_data = data
+    temp_data = temp_data.loc[:, ['Target Volume', 'Target FOB $', 'Target Retail Price $', 'Actual FOB $']]
+    tsne = TSNE(n_components=2, random_state=42)
+    X_tsne = tsne.fit_transform(temp_data)
+
+    # Create a scatter plot of the t-SNE results
+    plt.scatter(X_tsne[:, 0], X_tsne[:, 1])
+    plt.xlabel("t-SNE Dimension 1")
+    plt.ylabel("t-SNE Dimension 2")
+    plt.title("t-SNE Plot")
+    plt.show()
 
 
 def remove_anomaly(data):
@@ -64,7 +76,7 @@ def remove_anomaly(data):
     temp_data = temp_data[temp_data['Target Retail Price $'] != 0]
     temp_data = temp_data[temp_data['Actual FOB $'] != 0]
 
-    print("Number of data points before anomaly removal: "+str(len(temp_data)))
+    print("Number of data points after anomaly removal: "+str(len(temp_data)))
 
     cleaned_data = temp_data
 
@@ -73,4 +85,6 @@ def remove_anomaly(data):
 
 def anomaly_handler(data):
     #anomaly_detection(data)
-    return remove_anomaly(data)
+    cleaned_data = remove_anomaly(data)
+    #multi_dim_plot(cleaned_data)
+    return cleaned_data
