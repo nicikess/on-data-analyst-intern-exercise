@@ -1,4 +1,4 @@
-# On Running Data Analyst Application
+# On Running Product Creation Data Analyst Intern Application
 
 This repository contains the results of the Product Creation Data Analyst Intern position exercise at On. It includes a presentation with the exercise results and a Streamlit tool.
 
@@ -12,6 +12,6 @@ The tool helps to explore the impact of the **Actual FOB $** and the **Retail Pr
 
 ## Contact
 
-If you have any questions, please feel free to contact me at [nicolaskesseli@gmail.com]. I would be happy to address any queries or discuss the analysis in more detail.
+If you have any questions, please feel free to contact me at nicolaskesseli@gmail.com. I would be happy to address any queries or discuss the analysis in more detail.
 
 Thank you for considering my application.
